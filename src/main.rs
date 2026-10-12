@@ -57,43 +57,43 @@ fn main() {
 
     // Section 1 TODO: processors.
     //   Read sys.cpus().len() and print "Logical processors : {}".
-println!("Logical processors: {}",sys.cpus().len());
+    println!("Logical processors: {}", sys.cpus().len());
     // Section 2 TODO: memory.
     //   Read sys.total_memory() and sys.used_memory() (both in bytes), print
     //   total and free in GB (divide by GB), and set mem_load to the percent.
-let total_mem = sys.total_memory();
-let used_mem = sys.used_memory();
-let mem_load: u64 = if total_mem > 0 {
-    used_mem * 100 / total_mem
-} else {
-    0
-};
-println!("Total memory: {:.2} GB", total_mem as f64 / GB);
-println!("Free memory: {:.2} GB", (total_mem - used_mem) as f64 / GB);
+    let total_mem = sys.total_memory();
+    let used_mem = sys.used_memory();
+    let mem_load: u64 = if total_mem > 0 {
+        used_mem * 100 / total_mem
+    } else {
+        0
+    };
+    println!("Total memory: {:.2} GB", total_mem as f64 / GB);
+    println!("Free memory: {:.2} GB", (total_mem - used_mem) as f64 / GB);
 
     // Section 3 TODO: uptime.
     //   Print System::uptime() / 60 as "Uptime (minutes) : {}".
-println!("Uptime (minutes): {}", System::uptime() / 60);
+    println!("Uptime (minutes): {}", System::uptime() / 60);
     // Section 4 TODO: disk.
     //   Make `let disks = Disks::new_with_refreshed_list();` then take the
     //   first disk, read total_space() and available_space(), print them in
     //   GB, and set disk_used_pct to the percent in use.
-   let disks = Disks::new_with_refreshed_list();
-   let disk_used_pct: f64 = if let Some(disk) = disks.list().first() {
-    let total = disk.total_space();
-    let available = disk.available_space();
+    let disks = Disks::new_with_refreshed_list();
+    let disk_used_pct: f64 = if let Some(disk) = disks.list().first() {
+        let total = disk.total_space();
+        let available = disk.available_space();
 
-    println!("Total disk: {:.2} GB", total as f64 / GB);
-    println!("Free disk: {:.2} GB", available as f64 / GB);
+        println!("Total disk: {:.2} GB", total as f64 / GB);
+        println!("Free disk: {:.2} GB", available as f64 / GB);
 
-    if total > 0 {
-        (total - available) as f64 * 100.0 / total as f64
+        if total > 0 {
+            (total - available) as f64 * 100.0 / total as f64
+        } else {
+            0.0
+        }
     } else {
         0.0
-    }
-} else {
-    0.0
-};
+    };
 
     // Section 5: score (given, once the two variables above are real)
     let findings = Findings {
@@ -101,10 +101,6 @@ println!("Uptime (minutes): {}", System::uptime() / 60);
         disk_used_pct,
     };
     let score = compute_score(&findings);
-    println!(
-        "Efficiency score   : {} / 100 ({})",
-        score,
-        rating(score)
-    );
+    println!("Efficiency score   : {} / 100 ({})", score, rating(score));
     println!("Done.");
 }
